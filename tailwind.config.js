@@ -2,7 +2,11 @@
 module.exports = {
   content: ["./src/**/*.{html,js}"],
   theme: {
-    extend: {},
+    extend: {
+      backgroundImage: {
+        "back-shop": "url('./assets/images/mercado.jpg')",
+      },
+    },
   },
   plugins: [],
 };

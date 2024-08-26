@@ -1,4 +1,5 @@
 import { useState } from "react";
+import img from "./assets/images/mercado.jpg";
 
 function App() {
   const [productName, setProductName] = useState("");
@@ -17,11 +18,16 @@ function App() {
   }
 
   return (
-    <div className="">
+    <div className="bg-gray-600 h-screen w-full text-cyan-50 ">
+      <img
+        src={img}
+        alt=""
+        className="absolute object-cover w-full h-full opacity-5 "
+      />
       <header className="flex justify-center">
         <h1>Adicione sua compra</h1>
       </header>
-      <main className="bg-slate-400 m-10 p-2">
+      <main className=" m-10 p-2 backdrop-blur-3xl shadow-lg rounded-md">
         <form>
           <input
             value={productDateBuy}
@@ -46,12 +52,16 @@ function App() {
             <option value="frutas">Frutas</option>
             <option value="legumes">Legumes</option>
           </select>
-          <button className="" type="submit" onClick={handleAddProduct}>
+          <button
+            className="p-2 bg-slate-800 rounded-md mt-1"
+            type="submit"
+            onClick={handleAddProduct}
+          >
             Adicionar Compra
           </button>
         </form>
       </main>
-      <aside className="bg-slate-400 m-10 p-2">
+      <aside className="backdrop-blur-lg m-10 p-2 shadow-lg rounded-md">
         <h1 className="text-center">Compras Listadas</h1>
 
         <div>
