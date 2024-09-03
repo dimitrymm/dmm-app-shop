@@ -4,6 +4,10 @@
 
 @layer base {
   html {
-    font-family: "Noto Sans Hanunoo", system-ui, sans-serif;
+    font-family: "SUSE", system-ui, sans-serif;
   }
+}
+
+body {
+  background: #d4d4d4;
 }

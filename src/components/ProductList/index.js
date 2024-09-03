@@ -1,60 +1,64 @@
-import React from "react";
+import React, { useEffect, useMemo, useState } from "react";
 import { ReactComponent as XIcon } from "../../assets/icons/x.svg";
-import x from "../../assets/icons/x.svg";
-import { useProducts } from "../../Context/DataProvider";
+import trash from "../../assets/icons/trash (1).svg";
+import PropTypes from "prop-types";
 
-export default function ProductList() {
-  const products = useProducts();
+import ProductsService from "../../services/ProductsService";
 
+export default function ProductList({ searchDate }) {
+  const [productNew, setProductNew] = useState([]);
+  const esteSearchDate = "";
+
+  useEffect(() => {
+    async function loadProducts() {
+      try {
+        const productList = await ProductsService.listProducts();
+        setProductNew(productList);
+      } catch (error) {
+        console.log("error", error);
+      }
+    }
+    loadProducts();
+  }, []);
+
+  const filteredProducts = useMemo(
+    () =>
+      productNew.filter((product) =>
+        product.date.includes(!searchDate ? esteSearchDate : searchDate)
+      ),
+    [productNew, esteSearchDate, searchDate]
+  );
+
+  console.table(filteredProducts);
   return (
-    <aside className="backdrop-blur-lg p-2 shadow-lg rounded-md w-full max-w-sm">
+    <aside className="flex-col ">
       <h1 className="text-center">Compras Listadas</h1>
-      <div className="flex m-1">
-        <div>
-          <span>Data:</span>
-          {products.map((product) => (
-            <div key={product.id} className=" ">
-              <p className="border px-2 bg-slate-500 ">{product.date}</p>
-            </div>
-          ))}
-        </div>
-        <div>
-          <span>Nome:</span>
-          {products.map((product) => (
-            <div key={product.id} className="">
-              <p className="border px-2 bg-slate-500 ">{product.name}</p>
-            </div>
-          ))}
-        </div>
-        <div>
-          <span>Qtd:</span>
-          {products.map((product) => (
-            <div key={product.id} className="">
-              <p className="border bg-slate-500 px-3">{product.quantity}</p>
-            </div>
-          ))}
-        </div>
-        <div>
-          <span>Categoria:</span>
-          {products.map((product) => (
-            <div key={product.id} className="">
-              <p className="border px-2 bg-slate-500">
-                {product.category_name}
-              </p>
-            </div>
-          ))}
-        </div>
-        <div>
-          <span>Excluir</span>
-          {products.map((product) => (
-            <div key={product.id} className="">
-              <button className=" ">
-                <XIcon
-                  className="ml-4  fill-inherit text-red-600 h-5"
-                  src={x}
-                  alt="X"
-                />
-              </button>
+
+      <div className="">
+        <div className="">
+          {filteredProducts.map((product) => (
+            <div
+              key={product.id}
+              className="border border-black rounded-md m-1 p-1 max-w-full hover:border-r-2 hover:border-b-2"
+            >
+              <div className="flex justify-between items-center">
+                <div>
+                  <div className="">
+                    <strong className="">{product.name}</strong>
+                    <span className="ml-1  font-bold text-blue-700 uppercase">
+                      {product.category_name}
+                    </span>
+                  </div>
+                  <div className="">
+                    <span className=""> {product.quantity} Un.</span>
+                    <span className=" "> Em: {product.date}</span>
+                  </div>
+                </div>
+
+                <button className="  ">
+                  <img src={trash} alt="Excluir" className="" />
+                </button>
+              </div>
             </div>
           ))}
         </div>
@@ -62,3 +66,7 @@ export default function ProductList() {
     </aside>
   );
 }
+
+ProductList.propTypes = {
+  searchDate: PropTypes.string,
+};
