@@ -1,5 +1,4 @@
 import React, { useEffect, useMemo, useState } from "react";
-import { ReactComponent as XIcon } from "../../assets/icons/x.svg";
 import trash from "../../assets/icons/trash (1).svg";
 import PropTypes from "prop-types";
 
@@ -29,9 +28,8 @@ export default function ProductList({ searchDate }) {
     [productNew, esteSearchDate, searchDate]
   );
 
-  console.table(filteredProducts);
   return (
-    <aside className="flex-col ">
+    <aside className="flex-col p-2">
       <h1 className="text-center">Compras Listadas</h1>
 
       <div className="">
