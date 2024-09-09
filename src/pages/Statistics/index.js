@@ -4,10 +4,17 @@ import ProductList from "../../components/ProductList";
 import CategoryList from "../../components/CategoryList";
 
 export default function Statistics() {
-  const [searchDate, setSearchDate] = useState("");
+  const [searchDate, setSearchDate] = useState(undefined);
+  const [isGroupedListOpen, setIsGroupedListOpen] = useState(false);
 
   function handleSearchDate(event) {
-    setSearchDate(event.target.value);
+    setSearchDate(Number(event.target.value));
+  }
+
+  function handleOpenGroupedList(event) {
+    !isGroupedListOpen
+      ? setIsGroupedListOpen(true)
+      : setIsGroupedListOpen(false);
   }
 
   return (
@@ -17,47 +24,43 @@ export default function Statistics() {
           <select
             value={searchDate}
             onChange={handleSearchDate}
-            className="px-1 border border-gray-900 rounded-md"
+            className="p-1 border border-gray-900 rounded-md"
           >
             <option value="">Todos</option>
-            <option value="01">Janeiro</option>
-            <option value="02">Fevereiro</option>
-            <option value="03">Março</option>
-            <option value="04">Abril</option>
-            <option value="05">Maio</option>
-            <option value="06">Junho</option>
-            <option value="07">Julho</option>
-            <option value="08">Agosto</option>
-            <option value="09">Setembro</option>
+            <option value="1">Janeiro</option>
+            <option value="2">Fevereiro</option>
+            <option value="3">Março</option>
+            <option value="4">Abril</option>
+            <option value="5">Maio</option>
+            <option value="6">Junho</option>
+            <option value="7">Julho</option>
+            <option value="8">Agosto</option>
+            <option value="9">Setembro</option>
             <option value="10">Outubro</option>
             <option value="11">Novembro</option>
             <option value="12">Dezembro</option>
           </select>
+
+          <label
+            htmlFor="grouped"
+            className="p-1 ml-1 border border-black rounded-md"
+          >
+            Agrupar Produtos?
+            <input
+              value={isGroupedListOpen}
+              onClick={handleOpenGroupedList}
+              type="checkbox"
+              name="grouped"
+              className="ml-1"
+            />
+          </label>
         </nav>
-        {/* <div className="">
-          {filteredProducts.length > 0 ? (
-            filteredProducts.map((product) => (
-              <div key={product.id} className="flex mt-1">
-                <div className="border w-28 border-black px-1 rounded-md">
-                  {product.date}
-                </div>
-                <div className="border w-28 border-black  px-1 rounded-md">
-                  {product.name}
-                </div>
-                <div className="border w-28 border-black px-1 rounded-md">
-                  {product.quantity}
-                </div>
-                <div className="border w-28 border-black px-1 rounded-md">
-                  {product.category_name}
-                </div>
-              </div>
-            ))
-          ) : (
-            <p>Carregando...</p>
-          )}
-        </div> */}
+
         <div className="w-full">
-          <ProductList searchDate={searchDate} />
+          <ProductList
+            isGroupedListOpen={isGroupedListOpen}
+            searchDate={searchDate}
+          />
         </div>
         <CategoryList />
       </div>

@@ -1,9 +1,21 @@
-import { parse, getMonth } from "date-fns";
+import { formatDate } from "date-fns";
 
-export const filterByMonth = (products, month) => {
+export const filterByMonth = (products, searchDate) => {
   return products.filter((product) => {
-    const productDate = parse(product.date, "yyyy/MM/dd", new Date());
+    const formattedDate = formatDate(product.date);
 
-    return getMonth(productDate) + 1 === month;
+    console.log(
+      `Original Date: ${product.date}, Formatted Date: ${formattedDate}`
+    );
+
+    if (!formattedDate) {
+      console.log(`Invalid date format for product: ${product.nome}`);
+      return false;
+    }
+    const productMonth = new Date(formattedDate).getMonth() + 1;
+
+    console.log(`Product Month: ${productMonth}, Filter Month: ${searchDate}`);
+
+    return productMonth === searchDate;
   });
 };
