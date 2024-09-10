@@ -45,9 +45,6 @@ export default function ProductForm() {
           <option value="">Categoria</option>
           <option value="frutas">Frutas</option>
           <option value="legumes">Legumes</option>
-          <option value="">
-            <button>Button</button>
-          </option>
         </select>
         <button
           className="p-2 rounded-md mt-1 border border-gray-950 hover:bg-gray-950 hover:text-gray-200 w-full sm:w-40 mx-2 sm:mx-1 "

@@ -4,7 +4,7 @@ import ProductList from "../../components/ProductList";
 import CategoryList from "../../components/CategoryList";
 
 export default function Statistics() {
-  const [searchDate, setSearchDate] = useState(undefined);
+  const [searchDate, setSearchDate] = useState();
   const [isGroupedListOpen, setIsGroupedListOpen] = useState(false);
 
   function handleSearchDate(event) {
@@ -26,7 +26,7 @@ export default function Statistics() {
             onChange={handleSearchDate}
             className="p-1 border border-gray-900 rounded-md"
           >
-            <option value="">Todos</option>
+            <option>Todos</option>
             <option value="1">Janeiro</option>
             <option value="2">Fevereiro</option>
             <option value="3">Março</option>
@@ -57,10 +57,16 @@ export default function Statistics() {
         </nav>
 
         <div className="w-full">
-          <ProductList
-            isGroupedListOpen={isGroupedListOpen}
-            searchDate={searchDate}
-          />
+          {searchDate > 0 ? (
+            <ProductList
+              isGroupedListOpen={isGroupedListOpen}
+              searchDate={searchDate}
+            />
+          ) : (
+            <div>
+              <h1>Sem produtos</h1>
+            </div>
+          )}
         </div>
         <CategoryList />
       </div>

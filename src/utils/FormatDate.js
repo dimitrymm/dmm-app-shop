@@ -4,7 +4,15 @@ export const formatDate = (dateString) => {
   if (match) {
     const [_, day, month, year] = match;
 
-    return `${year}-${month}-${day}`;
+    const dateObj = new Date(`${year}-${month}-${day}`);
+
+    if (!isNaN(dateObj.getTime())) {
+      return `${year}-${month}-${day}`;
+    } else {
+      console.error(`Invalid date: ${dateString}`);
+      return null;
+    }
   }
+  console.error(`Invalid date format: ${dateString}`);
   return null;
 };

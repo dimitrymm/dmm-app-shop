@@ -43,53 +43,62 @@ export default function ProductList(props) {
 
       <div className="">
         <div className="">
-          {props.isGroupedListOpen
-            ? groupedProducts.map((product) => (
-                <div
-                  key={product.id}
-                  className="border border-black rounded-md m-1 p-1  hover:border-r-2 hover:border-b-2"
-                >
-                  <div className="flex justify-between items-center">
-                    <div>
-                      <div className="">
-                        <strong className="">{product.name}</strong>
-                      </div>
-                      <div className="">
-                        <span className=""> {product.quantity} Un.</span>
-                      </div>
+          {filteredProducts <= 0 ? (
+            <h1 className="text-center border border-gray-900 rounded-md">
+              Não possui produtos neste mes
+            </h1>
+          ) : (
+            filteredProducts.map((product) => (
+              <div
+                key={product.id}
+                className="border border-black rounded-md m-1 p-1 hover:border-r-2 hover:border-b-2"
+              >
+                <div className="flex justify-between items-center">
+                  <div>
+                    <div className="">
+                      <strong className="">{product.name}</strong>
+                      <span className="ml-1  font-bold text-blue-700 uppercase">
+                        {product.category_name}
+                      </span>
                     </div>
-
-                    <button className="  ">
-                      <img src={trash} alt="Excluir" className="" />
-                    </button>
-                  </div>
-                </div>
-              ))
-            : filteredProducts.map((product) => (
-                <div
-                  key={product.id}
-                  className="border border-black rounded-md m-1 p-1 hover:border-r-2 hover:border-b-2"
-                >
-                  <div className="flex justify-between items-center">
-                    <div>
-                      <div className="">
-                        <strong className="">{product.name}</strong>
-                        <span className="ml-1  font-bold text-blue-700 uppercase">
-                          {product.category_name}
-                        </span>
-                      </div>
-                      <div className="">
-                        <span className=""> {product.quantity} Un.</span>
-                        <span className=" "> Em: {product.date}</span>
-                      </div>
+                    <div className="">
+                      <span className=""> {product.quantity} Un.</span>
+                      <span className=" "> Em: {product.date}</span>
                     </div>
-
-                    <button className="  ">
-                      <img src={trash} alt="Excluir" className="" />
-                    </button>
                   </div>
+
+                  <button className="  ">
+                    <img src={trash} alt="Excluir" className="" />
+                  </button>
                 </div>
-              ))}
+              </div>
+            ))
+          )}
+          {props.isGroupedListOpen ? (
+            groupedProducts.map((product) => (
+              <div
+                key={product.id}
+                className="border border-black rounded-md m-1 p-1  hover:border-r-2 hover:border-b-2"
+              >
+                <div className="flex justify-between items-center">
+                  <div>
+                    <div className="">
+                      <strong className="">{product.name}</strong>
+                    </div>
+                    <div className="">
+                      <span className=""> {product.quantity} Un.</span>
+                    </div>
+                  </div>
+
+                  <button className="  ">
+                    <img src={trash} alt="Excluir" className="" />
+                  </button>
+                </div>
+              </div>
+            ))
+          ) : (
+            <span></span>
+          )}
         </div>
       </div>
     </aside>
