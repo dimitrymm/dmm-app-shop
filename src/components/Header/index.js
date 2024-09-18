@@ -2,22 +2,22 @@ import { Link } from 'react-router-dom/cjs/react-router-dom.min';
 
 export default function Header() {
     return (
-        <div className="mb-10 bg-slate-300 sticky top-0">
-            <header className=" flex justify-center  p-4 shadow-md shadow-slate-600">
+        <div className="sticky top-0 mb-10 bg-slate-300">
+            <header className="flex justify-center p-4 shadow-md shadow-slate-600">
                 <nav>
                     <ul className="mx-2">
-                        <Link to="/" className="hover:underline font-bold mr-1">
+                        <Link to="/" className="mr-1 font-bold hover:underline">
                             Home
                         </Link>
                         <Link
                             to="/products"
-                            className="hover:underline font-bold mr-1"
+                            className="mr-1 font-bold hover:underline"
                         >
                             Produtos
                         </Link>
                         <Link
                             to="/statistics"
-                            className="hover:underline font-bold mr-1"
+                            className="mr-1 font-bold hover:underline"
                         >
                             Estatísticas
                         </Link>

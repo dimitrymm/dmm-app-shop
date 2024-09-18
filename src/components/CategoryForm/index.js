@@ -19,8 +19,8 @@ export default function CategoryForm(props) {
         return null;
     }
     return (
-        <main className=" w-full h-full absolute top-0 left-0 p-2 flex justify-center items-center  ">
-            <form className="flex p-10 border border-gray-900 rounded-md text-black backdrop-blur-sm ">
+        <main className="absolute left-0 top-0 flex h-full w-full items-center justify-center p-2">
+            <form className="flex rounded-md border border-gray-900 p-10 text-black backdrop-blur-sm">
                 <div>
                     <h1 className="text-center text-lg font-bold">
                         Adicione Nova Categoria
@@ -30,11 +30,11 @@ export default function CategoryForm(props) {
                         onChange={(event) =>
                             setCategoryName(event.target.value)
                         }
-                        className="w-full sm:w-44  mr-1  p-2 border border-gray-900 rounded-md "
+                        className="mr-1 w-full rounded-md border border-gray-900 p-2 sm:w-44"
                     />
                     <button
                         onClick={handleAddCategory}
-                        className="p-2 mr-1 mt-2 rounded-md border border-gray-950 hover:bg-gray-950 hover:text-gray-200 w-full sm:w-44"
+                        className="mr-1 mt-2 w-full rounded-md border border-gray-950 p-2 hover:bg-gray-950 hover:text-gray-200 sm:w-44"
                         type="submit"
                     >
                         Adicionar Categoria

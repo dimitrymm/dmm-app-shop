@@ -17,37 +17,37 @@ export default function ProductForm() {
     }
 
     return (
-        <main className="p-2 ">
-            <form className="text-black space-x-1 ">
+        <main className="p-2">
+            <form className="space-x-1 text-black">
                 <input
                     value={productDateBuy}
                     onChange={(event) => setProductDateBuy(event.target.value)}
                     type="date"
-                    className="py-2 w-56 sm:w-32 border border-gray-900 rounded-md"
+                    className="w-56 rounded-md border border-gray-900 py-2 sm:w-32"
                 />
                 <input
                     value={productQuantity}
                     onChange={(event) => setProductQuantity(event.target.value)}
                     placeholder="Qtd"
-                    className="py-2 w-28 sm:w-16 border border-gray-900 rounded-md"
+                    className="w-28 rounded-md border border-gray-900 py-2 sm:w-16"
                 />
                 <input
                     value={productName}
                     onChange={(event) => setProductName(event.target.value)}
                     placeholder="Nome"
-                    className="py-2  w-56 sm:w-32 border border-gray-900 rounded-md"
+                    className="w-56 rounded-md border border-gray-900 py-2 sm:w-32"
                 />
                 <select
                     value={productCategory}
                     onChange={(event) => setProductCategory(event.target.value)}
-                    className="py-2  w-28 sm:w-32 border border-gray-900 rounded-md"
+                    className="w-28 rounded-md border border-gray-900 py-2 sm:w-32"
                 >
                     <option value="">Categoria</option>
                     <option value="frutas">Frutas</option>
                     <option value="legumes">Legumes</option>
                 </select>
                 <button
-                    className="p-2 rounded-md mt-1 border border-gray-950 hover:bg-gray-950 hover:text-gray-200 w-full sm:w-40 mx-2 sm:mx-1 "
+                    className="mx-2 mt-1 w-full rounded-md border border-gray-950 p-2 hover:bg-gray-950 hover:text-gray-200 sm:mx-1 sm:w-40"
                     type="submit"
                     onClick={handleAddProduct}
                 >

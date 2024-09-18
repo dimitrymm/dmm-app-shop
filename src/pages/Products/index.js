@@ -16,16 +16,16 @@ export default function Products() {
                 setIsModalOpen={setIsModalOpen}
             />
             <div>
-                <div className="max-w-2xl mx-1 mb-3 shadow-md shadow-slate-600 rounded-md ">
+                <div className="mx-1 mb-3 max-w-2xl rounded-md shadow-md shadow-slate-600">
                     <ProductForm />
                     <button
                         onClick={handleOpenModal}
-                        className="hover:underline font-bold mr-1"
+                        className="mr-1 font-bold hover:underline"
                     >
                         Adicionar Categoria
                     </button>
                 </div>
-                <div className=" max-w-2xl mx-1 mb-3 shadow-md shadow-slate-600 rounded-md">
+                <div className="mx-1 mb-3 max-w-2xl rounded-md shadow-md shadow-slate-600">
                     <ProductList />
                 </div>
             </div>

@@ -19,12 +19,12 @@ export default function Statistics() {
 
     return (
         <div className="flex justify-center">
-            <div className="flex flex-col justify-center items-center  p-2 shadow-md shadow-slate-600 rounded-md w-full max-w-2xl">
+            <div className="flex w-full max-w-2xl flex-col items-center justify-center rounded-md p-2 shadow-md shadow-slate-600">
                 <nav>
                     <select
                         value={searchDate}
                         onChange={handleSearchDate}
-                        className="p-1 border border-gray-900 rounded-md"
+                        className="rounded-md border border-gray-900 p-1"
                     >
                         <option>Todos</option>
                         <option value="1">Janeiro</option>
@@ -43,7 +43,7 @@ export default function Statistics() {
 
                     <label
                         htmlFor="grouped"
-                        className="p-1 ml-1 border border-black rounded-md"
+                        className="ml-1 rounded-md border border-black p-1"
                     >
                         Agrupar Produtos?
                         <input

@@ -47,22 +47,22 @@ export default function ProductList(props) {
             <div className="">
                 <div className="">
                     {filteredProducts <= 0 ? (
-                        <h1 className="text-center border border-gray-900 rounded-md">
+                        <h1 className="rounded-md border border-gray-900 text-center">
                             Não possui produtos neste mes
                         </h1>
                     ) : (
                         filteredProducts.map((product) => (
                             <div
                                 key={product.id}
-                                className="border border-black rounded-md m-1 p-1 hover:border-r-2 hover:border-b-2"
+                                className="m-1 rounded-md border border-black p-1 hover:border-b-2 hover:border-r-2"
                             >
-                                <div className="flex justify-between items-center">
+                                <div className="flex items-center justify-between">
                                     <div>
                                         <div className="">
                                             <strong className="">
                                                 {product.name}
                                             </strong>
-                                            <span className="ml-1  font-bold text-blue-700 uppercase">
+                                            <span className="ml-1 font-bold uppercase text-blue-700">
                                                 {product.category_name}
                                             </span>
                                         </div>
@@ -78,7 +78,7 @@ export default function ProductList(props) {
                                         </div>
                                     </div>
 
-                                    <button className="  ">
+                                    <button className=" ">
                                         <img
                                             src={trash}
                                             alt="Excluir"
@@ -93,9 +93,9 @@ export default function ProductList(props) {
                         groupedProducts.map((product) => (
                             <div
                                 key={product.id}
-                                className="border border-black rounded-md m-1 p-1  hover:border-r-2 hover:border-b-2"
+                                className="m-1 rounded-md border border-black p-1 hover:border-b-2 hover:border-r-2"
                             >
-                                <div className="flex justify-between items-center">
+                                <div className="flex items-center justify-between">
                                     <div>
                                         <div className="">
                                             <strong className="">
@@ -110,7 +110,7 @@ export default function ProductList(props) {
                                         </div>
                                     </div>
 
-                                    <button className="  ">
+                                    <button className=" ">
                                         <img
                                             src={trash}
                                             alt="Excluir"
