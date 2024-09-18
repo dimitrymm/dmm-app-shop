@@ -1,6 +1,7 @@
 import HttpClient from "./utils/HttpClient";
 
 class CategoriesService {
+      const home = 'home'
   constructor() {
     this.httpClient = new HttpClient("http://localhost:3001");
   }

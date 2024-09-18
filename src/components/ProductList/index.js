@@ -1,111 +1,132 @@
-import React, { useEffect, useState } from "react";
-import trash from "../../assets/icons/trash (1).svg";
-import PropTypes from "prop-types";
+import React, { useCallback, useEffect, useMemo, useState } from 'react';
+import trash from '../../assets/icons/trash (1).svg';
+import PropTypes from 'prop-types';
 
-import ProductsService from "../../services/ProductsService";
-import { filterByMonth } from "../../utils/FilterByMonth";
+import ProductsService from '../../services/ProductsService';
+import { filterByMonth } from '../../utils/FilterByMonth';
+import { formatDate } from '../../utils/FormatDate';
 
 export default function ProductList(props) {
-  const [products, setProducts] = useState([]);
+    const [products, setProducts] = useState([]);
 
-  useEffect(() => {
-    async function loadProducts() {
-      try {
-        const productList = await ProductsService.listProducts();
-        setProducts(productList);
-      } catch (error) {
-        console.log("error", error);
-      }
-    }
-    loadProducts();
-  }, []);
+    const loadProducts = useCallback(async () => {
+        try {
+            const productList = await ProductsService.listProducts();
+            setProducts(productList);
+        } catch (error) {
+            console.log('error', error);
+        }
+    }, []);
 
-  const filteredProducts = props.searchDate
-    ? filterByMonth(products, props.searchDate)
-    : products;
+    useEffect(() => {
+        loadProducts();
+    }, [loadProducts]);
 
-  const groupByProductName = (products) => {
-    const groupedProducts = products.reduce((acc, product) => {
-      const { name } = product;
-      if (!acc[name]) {
-        acc[name] = { ...product, quantidade: 0 };
-      }
-      acc[name].quantity += product.quantity;
-      return acc;
-    }, {});
-    return Object.values(groupedProducts);
-  };
-  const groupedProducts = groupByProductName(products);
+    const filteredProducts = props.searchDate
+        ? filterByMonth(products, props.searchDate)
+        : products;
 
-  return (
-    <aside className="flex-col p-2">
-      <h1 className="text-center">Compras Listadas</h1>
+    const groupByProductName = (products) => {
+        const groupedProducts = products.reduce((acc, product) => {
+            const { name } = product;
+            if (!acc[name]) {
+                acc[name] = { ...product, quantidade: 0 };
+            }
+            acc[name].quantity += product.quantity;
+            return acc;
+        }, {});
+        return Object.values(groupedProducts);
+    };
 
-      <div className="">
-        <div className="">
-          {filteredProducts <= 0 ? (
-            <h1 className="text-center border border-gray-900 rounded-md">
-              Não possui produtos neste mes
-            </h1>
-          ) : (
-            filteredProducts.map((product) => (
-              <div
-                key={product.id}
-                className="border border-black rounded-md m-1 p-1 hover:border-r-2 hover:border-b-2"
-              >
-                <div className="flex justify-between items-center">
-                  <div>
-                    <div className="">
-                      <strong className="">{product.name}</strong>
-                      <span className="ml-1  font-bold text-blue-700 uppercase">
-                        {product.category_name}
-                      </span>
-                    </div>
-                    <div className="">
-                      <span className=""> {product.quantity} Un.</span>
-                      <span className=" "> Em: {product.date}</span>
-                    </div>
-                  </div>
+    const groupedProducts = groupByProductName(products);
 
-                  <button className="  ">
-                    <img src={trash} alt="Excluir" className="" />
-                  </button>
+    return (
+        <aside className="flex-col p-2">
+            <h1 className="text-center">Compras Listadas</h1>
+
+            <div className="">
+                <div className="">
+                    {filteredProducts <= 0 ? (
+                        <h1 className="text-center border border-gray-900 rounded-md">
+                            Não possui produtos neste mes
+                        </h1>
+                    ) : (
+                        filteredProducts.map((product) => (
+                            <div
+                                key={product.id}
+                                className="border border-black rounded-md m-1 p-1 hover:border-r-2 hover:border-b-2"
+                            >
+                                <div className="flex justify-between items-center">
+                                    <div>
+                                        <div className="">
+                                            <strong className="">
+                                                {product.name}
+                                            </strong>
+                                            <span className="ml-1  font-bold text-blue-700 uppercase">
+                                                {product.category_name}
+                                            </span>
+                                        </div>
+                                        <div className="">
+                                            <span className="">
+                                                {' '}
+                                                {product.quantity} Un.
+                                            </span>
+                                            <span className=" ">
+                                                {' '}
+                                                Em: {product.date}
+                                            </span>
+                                        </div>
+                                    </div>
+
+                                    <button className="  ">
+                                        <img
+                                            src={trash}
+                                            alt="Excluir"
+                                            className=""
+                                        />
+                                    </button>
+                                </div>
+                            </div>
+                        ))
+                    )}
+                    {props.isGroupedListOpen &&
+                        groupedProducts.map((product) => (
+                            <div
+                                key={product.id}
+                                className="border border-black rounded-md m-1 p-1  hover:border-r-2 hover:border-b-2"
+                            >
+                                <div className="flex justify-between items-center">
+                                    <div>
+                                        <div className="">
+                                            <strong className="">
+                                                {product.name}
+                                            </strong>
+                                        </div>
+                                        <div className="">
+                                            <span className="">
+                                                {' '}
+                                                {product.quantity} Un.
+                                            </span>
+                                        </div>
+                                    </div>
+
+                                    <button className="  ">
+                                        <img
+                                            src={trash}
+                                            alt="Excluir"
+                                            className=""
+                                        />
+                                    </button>
+                                </div>
+                            </div>
+                        ))}
                 </div>
-              </div>
-            ))
-          )}
-          {props.isGroupedListOpen ? (
-            groupedProducts.map((product) => (
-              <div
-                key={product.id}
-                className="border border-black rounded-md m-1 p-1  hover:border-r-2 hover:border-b-2"
-              >
-                <div className="flex justify-between items-center">
-                  <div>
-                    <div className="">
-                      <strong className="">{product.name}</strong>
-                    </div>
-                    <div className="">
-                      <span className=""> {product.quantity} Un.</span>
-                    </div>
-                  </div>
-
-                  <button className="  ">
-                    <img src={trash} alt="Excluir" className="" />
-                  </button>
-                </div>
-              </div>
-            ))
-          ) : (
-            <span></span>
-          )}
-        </div>
-      </div>
-    </aside>
-  );
+            </div>
+        </aside>
+    );
 }
 
 ProductList.propTypes = {
-  searchDate: PropTypes.number,
-  isGroupedListOpen: PropTypes.bool,
+    searchDate: PropTypes.number,
+    isGroupedListOpen: PropTypes.bool,
 };
