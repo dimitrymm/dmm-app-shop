@@ -1,27 +1,56 @@
-import React, { useState } from 'react';
+import { useEffect, useState } from 'react';
+import useErrors from '../../hooks/useErrors';
+import CategoriesService from '../../services/CategoriesService';
+import PropTypes from 'prop-types';
+import FormatDate from '../../utils/FormatDate';
 
-export default function ProductForm() {
+export default function ProductForm({ onSubmit }) {
     const [productName, setProductName] = useState('');
     const [productDateBuy, setProductDateBuy] = useState('');
     const [productQuantity, setProductQuantity] = useState('');
-    const [productCategory, setProductCategory] = useState('');
+    const [productCategoryId, setProductCategoryId] = useState('');
+    const [categories, setCategories] = useState([]);
 
-    function handleAddProduct(event) {
+    const { setError, removeError, getErrorMessageByFieldName, errors } =
+        useErrors();
+
+    useEffect(() => {
+        async function loadCategories() {
+            try {
+                const categoriesList = await CategoriesService.listCategories();
+                setCategories(categoriesList);
+            } catch (error) {
+                console.log('erro loadcategories', error);
+            }
+        }
+        loadCategories();
+    }, []);
+
+    function handleDateChange(event) {
+        if (!event.target.value) {
+            console.log('Data é obrigatiorio');
+        } else {
+            setProductDateBuy(event.target.value);
+        }
+    }
+
+    async function handleAddProduct(event) {
         event.preventDefault();
-        console.table({
+
+        await onSubmit({
             productDateBuy,
             productQuantity,
             productName,
-            productCategory,
+            productCategoryId,
         });
     }
 
     return (
         <main className="p-2">
-            <form className="space-x-1 text-black">
+            <form onSubmit={handleAddProduct} className="space-x-1 text-black">
                 <input
                     value={productDateBuy}
-                    onChange={(event) => setProductDateBuy(event.target.value)}
+                    onChange={handleDateChange}
                     type="date"
                     className="w-56 rounded-md border border-gray-900 py-2 sm:w-32"
                 />
@@ -38,18 +67,22 @@ export default function ProductForm() {
                     className="w-56 rounded-md border border-gray-900 py-2 sm:w-32"
                 />
                 <select
-                    value={productCategory}
-                    onChange={(event) => setProductCategory(event.target.value)}
+                    value={productCategoryId}
+                    onChange={(event) =>
+                        setProductCategoryId(event.target.value)
+                    }
                     className="w-28 rounded-md border border-gray-900 py-2 sm:w-32"
                 >
-                    <option value="">Categoria</option>
-                    <option value="frutas">Frutas</option>
-                    <option value="legumes">Legumes</option>
+                    <option value="">Sem Categoria</option>
+                    {categories.map((category) => (
+                        <option key={category.id} value={category.id}>
+                            {category.name}
+                        </option>
+                    ))}
                 </select>
                 <button
                     className="mx-2 mt-1 w-full rounded-md border border-gray-950 p-2 hover:bg-gray-950 hover:text-gray-200 sm:mx-1 sm:w-40"
                     type="submit"
-                    onClick={handleAddProduct}
                 >
                     Adicionar Compra
                 </button>
@@ -57,3 +90,7 @@ export default function ProductForm() {
         </main>
     );
 }
+
+ProductForm.propTypes = {
+    onSubmit: PropTypes.func.isRequired,
+};

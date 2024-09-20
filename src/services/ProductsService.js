@@ -7,6 +7,9 @@ class ProductsService {
     async listProducts() {
         return this.httpClient.get('/products');
     }
+    async createListProducts(product) {
+        return this.httpClient.post('/products', { body: product });
+    }
 }
 
 export default new ProductsService();

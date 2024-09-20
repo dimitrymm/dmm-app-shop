@@ -1,13 +1,13 @@
-export const formatDate = (dateString) => {
-    const regex = /(\d{2})\/(\d{2})\/(\d{4})/;
+export default function FormatDate(dateString) {
+    const regex = /(\d{4})-(\d{2})-(\d{2})/;
     const match = dateString.match(regex);
     if (match) {
-        const [_, day, month, year] = match;
+        const [_, year, month, day] = match;
 
         const dateObj = new Date(`${year}-${month}-${day}`);
 
         if (!isNaN(dateObj.getTime())) {
-            return `${year}-${month}-${day}`;
+            return `${day}/${month}/${year}`;
         } else {
             console.error(`Invalid date: ${dateString}`);
             return null;
@@ -15,4 +15,4 @@ export const formatDate = (dateString) => {
     }
     console.error(`Invalid date format: ${dateString}`);
     return null;
-};
+}

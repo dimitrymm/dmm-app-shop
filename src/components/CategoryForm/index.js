@@ -1,13 +1,19 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import PropTypes from 'prop-types';
 import x from '../../assets/icons/x.svg';
 
-export default function CategoryForm(props) {
+export default function CategoryForm({
+    onSubmit,
+    isModalOpen,
+    setIsModalOpen,
+}) {
     const [categoryName, setCategoryName] = useState('');
-    const { setIsModalOpen } = props;
 
-    function handleAddCategory(event) {
+    async function handleAddCategory(event) {
         event.preventDefault();
+        onSubmit({
+            categoryName,
+        });
         console.log(categoryName);
     }
 
@@ -15,7 +21,7 @@ export default function CategoryForm(props) {
         setIsModalOpen(false);
     }
 
-    if (!props.isModalOpen) {
+    if (!isModalOpen) {
         return null;
     }
     return (
@@ -54,4 +60,5 @@ export default function CategoryForm(props) {
 CategoryForm.propTypes = {
     isModalOpen: PropTypes.bool.isRequired,
     setIsModalOpen: PropTypes.func.isRequired,
+    onSubmit: PropTypes.func.isRequired,
 };
